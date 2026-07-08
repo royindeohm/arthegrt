@@ -1,13 +1,34 @@
-import { StrictMode } from 'react';
+import { StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 import './index.css';
 import App from './App.jsx';
 
+function AppWithRedirect() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const redirect = sessionStorage.getItem('redirect');
+    if (redirect) {
+      sessionStorage.removeItem('redirect');
+      const base = '/plumgrt';
+      let path = redirect;
+      if (path.startsWith(base)) {
+        path = path.substring(base.length);
+      }
+      if (path && path !== '/') {
+        navigate(path, { replace: true });
+      }
+    }
+  }, [navigate]);
+
+  return <App />;
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
+    <BrowserRouter basename="/plumgrt">
+      <AppWithRedirect />
     </BrowserRouter>
   </StrictMode>
 );
