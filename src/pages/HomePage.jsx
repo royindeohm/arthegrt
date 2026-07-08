@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ProductContext } from '../context/ProductContext';
-import { CATEGORIES } from '../data/products';
+import { CATEGORIES, CATEGORY_META } from '../data/products';
 import ProductCard from '../components/product/ProductCard';
 import SkeletonCard from '../components/common/SkeletonCard';
 
@@ -11,6 +11,12 @@ const HomePage = () => {
   const featuredProducts = products
     .filter((p) => p.rating >= 4.7)
     .slice(0, 4);
+
+  const categoryCards = CATEGORIES.map((category) => {
+    const count = products.filter((p) => p.category === category).length;
+    const icon = CATEGORY_META[category]?.icon || 'storefront';
+    return { category, count, icon };
+  });
 
   return (
     <main>
@@ -41,8 +47,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section className="py-20 md:px-16 max-w-[1440px] mx-auto px-4" aria-labelledby="categories-title">
-        <div className="flex flex-col md:flex-row justify-between items-baseline mb-12 gap-4">
+      <section className="py-16 md:px-16 max-w-[1440px] mx-auto px-4" aria-labelledby="categories-title">
+        <div className="flex flex-col md:flex-row justify-between items-baseline mb-8 gap-4">
           <div className="space-y-1">
             <h2 id="categories-title" className="font-headline-md text-2xl font-bold text-on-surface uppercase">Curated Selection</h2>
             <div className="h-2 w-32 bg-secondary-container" />
@@ -52,38 +58,28 @@ const HomePage = () => {
             View All Pieces
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
-          {CATEGORIES.slice(0, 3).map((category) => {
-            const count = products.filter((p) => p.category === category).length;
-            const categoryProduct = products.find((p) => p.category === category);
-            return (
-              <Link
-                key={category}
-                to="/products"
-                className="group cursor-pointer"
-                onClick={() => toggleCategory(category)}
-                role="listitem"
-                aria-label={`Shop ${category} category, ${count} products available`}
-              >
-                <div className="relative aspect-[4/5] bg-surface-container overflow-hidden mb-4 border-4 border-on-surface transition-all duration-300 group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-[2px_2px_0px_0px_rgba(38,24,28,1)] shadow-[6px_6px_0px_0px_rgba(38,24,28,1)]">
-                  {categoryProduct && (
-                    <img
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      src={categoryProduct.image}
-                      alt={category}
-                    />
-                  )}
+        <div className="flex gap-4 overflow-x-auto pb-4 hide-scrollbar custom-scrollbar" role="list">
+          {categoryCards.map(({ category, count, icon }) => (
+            <Link
+              key={category}
+              to="/products"
+              className="group flex-shrink-0 w-48 cursor-pointer"
+              onClick={() => toggleCategory(category)}
+              role="listitem"
+              aria-label={`Shop ${category} category, ${count} products available`}
+            >
+              <div className="relative bg-surface-container-lowest border-4 border-on-surface p-6 flex flex-col items-center gap-4 transition-all duration-300 group-hover:translate-x-[2px] group-hover:translate-y-[2px] group-hover:shadow-[2px_2px_0px_0px_rgba(38,24,28,1)] shadow-[6px_6px_0px_0px_rgba(38,24,28,1)]">
+                <div className="w-16 h-16 bg-surface-container border-2 border-on-surface flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-[32px]">{icon}</span>
                 </div>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-headline-sm uppercase text-sm font-bold text-on-surface mb-1">{category}</h3>
-                    <p className="text-xs text-on-surface-variant font-light">{count} products</p>
-                  </div>
-                  <span className="material-symbols-outlined text-on-surface-variant text-lg group-hover:text-primary transition-colors">arrow_forward</span>
+                <div className="text-center">
+                  <h3 className="font-headline-sm uppercase text-sm font-bold text-on-surface">{category}</h3>
+                  <p className="text-xs text-on-surface-variant font-light">{count} products</p>
                 </div>
-              </Link>
-            );
-          })}
+                <span className="material-symbols-outlined text-on-surface-variant text-lg group-hover:text-primary transition-colors">arrow_forward</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 
