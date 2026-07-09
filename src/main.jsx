@@ -11,7 +11,7 @@ function AppWithRedirect() {
     const redirect = sessionStorage.getItem('redirect');
     if (redirect) {
       sessionStorage.removeItem('redirect');
-      const base = '/plumgrt';
+      const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       let path = redirect;
       if (path.startsWith(base)) {
         path = path.substring(base.length);
@@ -27,7 +27,7 @@ function AppWithRedirect() {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter basename="/plumgrt">
+    <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <AppWithRedirect />
     </BrowserRouter>
   </StrictMode>
