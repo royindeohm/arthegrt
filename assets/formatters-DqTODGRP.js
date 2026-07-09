@@ -1,0 +1,1 @@
+var e=e=>new Intl.NumberFormat(`en-US`,{style:`currency`,currency:`USD`,minimumFractionDigits:2,maximumFractionDigits:2}).format(e),t=()=>`ORD-${Math.random().toString(16).substring(2,10).toUpperCase()}`,n=e=>e===0?{label:`Out of Stock`,variant:`out-of-stock`}:e<=10?{label:`Only ${e} left`,variant:`low-stock`}:{label:`In Stock`,variant:`in-stock`};export{t as n,n as r,e as t};
