@@ -14,6 +14,7 @@ export const CATEGORY_META = {
   Gaming:      { icon: 'sports_esports', description: 'Performance gaming hardware' },
 };
 
+const BASE = import.meta.env.BASE_URL;
 const IMG = (id) => `https://images.unsplash.com/${id}?w=600&auto=format&fit=crop&q=80`;
 
 const products = [
@@ -57,7 +58,7 @@ const products = [
     price: 179.99,
     category: 'Electronics',
     rating: 4.9,
-    image: IMG('photo-1603302576837-37561b5f0d3b'),
+    image: `${BASE}pictures/portable-ssd-2tb.jfif`,
     stock: 25,
     createdAt: '2026-01-10',
   },
@@ -79,7 +80,7 @@ const products = [
     price: 49.99,
     category: 'Electronics',
     rating: 4.3,
-    image: IMG('photo-1586943101559-d6b5e4c1e0b2'),
+    image: `${BASE}pictures/wireless-charging-pad.jfif`,
     stock: 60,
     createdAt: '2026-02-14',
   },
@@ -134,7 +135,7 @@ const products = [
     price: 149.99,
     category: 'Clothing',
     rating: 4.8,
-    image: IMG('photo-1608236454440-7ae9c1b4f9b6'),
+    image: `${BASE}pictures/lightweight-puffer-jackets.jfif`,
     stock: 28,
     createdAt: '2026-01-20',
   },
@@ -233,7 +234,7 @@ const products = [
     price: 189.99,
     category: 'Shoes',
     rating: 4.8,
-    image: IMG('photo-1605810230434-7639ac2ecb0a'),
+    image: `${BASE}pictures/suade-chelsea-boots.jfif`,
     stock: 12,
     createdAt: '2026-01-05',
   },
@@ -288,7 +289,7 @@ const products = [
     price: 49.99,
     category: 'Accessories',
     rating: 4.3,
-    image: IMG('photo-1556306535-0f09c5371530'),
+    image: `${BASE}pictures/sikl-pocket-square.jfif`,
     stock: 70,
     createdAt: '2025-10-25',
   },
@@ -299,7 +300,7 @@ const products = [
     price: 44.99,
     category: 'Accessories',
     rating: 4.4,
-    image: IMG('photo-1624222247344-550fb8ecf7db'),
+    image: `${BASE}pictures/braided-leather-belt.jfif`,
     stock: 80,
     createdAt: '2026-04-15',
   },
@@ -376,7 +377,7 @@ const products = [
     price: 349.99,
     category: 'Gaming',
     rating: 4.5,
-    image: IMG('photo-1598550476439-6847785fce6e'),
+    image: `${BASE}pictures/ergonomic-gamming-chair.jfif`,
     stock: 0,
     createdAt: '2026-04-10',
   },
